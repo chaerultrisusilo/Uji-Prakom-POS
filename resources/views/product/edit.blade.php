@@ -17,7 +17,7 @@
                             @method('put')
                             <div class="mb-3">
                                 @if ($edit->product_photo)
-                                    <img src="{{ assets(path: 'storage/' . $edit->product_photo) }}" alt="{{ $edit->product_name }}"
+                                    <img src="{{ asset(path: 'storage/' . $edit->product_photo) }}" alt="{{ $edit->product_name }}"
                                         width="200">
                                 @else
                                     <img src="" alt="{{ $edit->product_name }}" width="200">

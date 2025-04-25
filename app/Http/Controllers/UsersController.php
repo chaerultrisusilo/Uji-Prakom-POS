@@ -15,7 +15,8 @@ class UsersController extends Controller
         $title = "Data Users";
         // select * from users
         $datas = User::get();
-        return view('users.index', compact('title', 'datas'));
+        $roles = Roles::orderBy('id', 'desc')->get();
+        return view('users.index', compact('title', 'datas', 'roles'));
     }
 
     /**

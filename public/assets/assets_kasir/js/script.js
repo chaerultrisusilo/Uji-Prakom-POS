@@ -1,28 +1,28 @@
-async function loadDatabase() {
-  const db = await idb.openDB("tailwind_store", 1, {
-    upgrade(db, oldVersion, newVersion, transaction) {
-      db.createObjectStore("products", {
-        keyPath: "id",
-        autoIncrement: true,
-      });
-      db.createObjectStore("sales", {
-        keyPath: "id",
-        autoIncrement: true,
-      });
-    },
-  });
+// async function loadDatabase() {
+//   const db = await idb.openDB("tailwind_store", 1, {
+//     upgrade(db, oldVersion, newVersion, transaction) {
+//       db.createObjectStore("products", {
+//         keyPath: "id",
+//         autoIncrement: true,
+//       });
+//       db.createObjectStore("sales", {
+//         keyPath: "id",
+//         autoIncrement: true,
+//       });
+//     },
+//   });
 
-  return {
-    db,
-    getProducts: async () => await db.getAll("products"),
-    addProduct: async (product) => await db.add("products", product),
-    editProduct: async (product) =>
-      await db.put("products", product.id, product),
-    deleteProduct: async (product) => await db.delete("products", product.id),
-  };
-}
+//   return {
+//     db,
+//     getProducts: async () => await db.getAll("products"),
+//     addProduct: async (product) => await db.add("products", product),
+//     editProduct: async (product) =>
+//       await db.put("products", product.id, product),
+//     deleteProduct: async (product) => await db.delete("products", product.id),
+//   };
+// }
 
-function initApp() {
+function initApp(products) {
   const app = {
     db: null,
     time: null,
@@ -30,7 +30,7 @@ function initApp() {
     activeMenu: 'pos',
     loadingSampleData: false,
     moneys: [2000, 5000, 10000, 20000, 50000, 100000],
-    products: [],
+    products: products,
     keyword: "",
     cart: [],
     cash: 0,
@@ -92,7 +92,9 @@ function initApp() {
       return this.cart.findIndex((p) => p.productId === product.id);
     },
     addQty(item, qty) {
-      const index = this.cart.findIndex((i) => i.productId === item.productId);
+      const index = this.cart.findIndex(
+        (i) => i.productId === item.productId
+      );
       if (index === -1) {
         return;
       }

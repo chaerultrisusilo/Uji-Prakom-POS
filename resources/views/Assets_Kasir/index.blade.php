@@ -12,7 +12,7 @@
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"></script>
   <script src={{ asset("assets/assets_kasir/js/script.js") }}></script>
 </head>
-<body class="bg-blue-gray-50" x-data="initApp()" x-init="initDatabase()">
+<body class="bg-blue-gray-50" x-data="initApp({{ json_encode($products) }})" x-init="initDatabase()">
   <!-- noprint-area -->
   <div class="hide-print flex flex-row h-screen antialiased text-blue-gray-800">
     <!-- left sidebar -->
@@ -152,8 +152,8 @@
                   :title="product.name"
                   x-on:click="addToCart(product)"
                 >
-                  <img :src="product.image" :alt="product.name">
-                  <div class="flex pb-3 px-3 text-sm -mt-3">
+                  <img :src="'{{ asset('storage/') }}/' + product.image" :alt="product.name" class="rounded-t-2xl h-64 w-full bg-white shadow object-cover">
+                  <div class="flex pb-3 px-3 text-sm mt-3">
                     <p class="flex-grow truncate mr-1" x-text="product.name"></p>
                     <p class="nowrap font-semibold" x-text="priceFormat(product.price)"></p>
                   </div>
@@ -201,7 +201,7 @@
             <div class="flex-1 w-full px-4 overflow-auto">
               <template x-for="item in cart" :key="item.productId">
                 <div class="select-none mb-3 bg-blue-gray-50 rounded-lg w-full text-blue-gray-700 py-2 px-2 flex justify-center">
-                  <img :src="item.image" alt="" class="rounded-lg h-10 w-10 bg-white shadow mr-2">
+                  <img :src="'{{ asset('storage/') }}/' + item.image" alt="" class="rounded-lg h-10 w-10 bg-white shadow mr-2">
                   <div class="flex-grow">
                     <h5 class="text-sm" x-text="item.name"></h5>
                     <p class="text-xs block" x-text="priceFormat(item.price)"></p>
@@ -346,9 +346,9 @@
       >
         <div id="receipt-content" class="text-left w-full text-sm p-6 overflow-auto">
           <div class="text-center">
-            <img src="img/receipt-logo.png" alt="Tailwind POS" class="mb-3 w-8 h-8 inline-block">
-            <h2 class="text-xl font-semibold">TAILWIND POS</h2>
-            <p>CABANG KONOHA SELATAN</p>
+            <img src="/assets/img/Kopine.png" alt="Logo Kopine Siji" class="mb-3 w-12.4 h-12.4 inline-block">
+            <h2 class="text-xl font-semibold">KOPINE SIJI</h2>
+            <p>Jalan Raya Condet No.88 Balekambang Jakarta Timur HP : 0812 888 888 </p>
           </div>
           <div class="flex mt-4 text-xs">
             <div class="flex-grow">No: <span x-text="receiptNo"></span></div>

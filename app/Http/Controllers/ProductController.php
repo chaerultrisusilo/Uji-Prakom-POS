@@ -23,6 +23,21 @@ class ProductController extends Controller
         return view('product.index', compact('title', 'datas'));
     }
 
+    // Menampilkan halaman baru untuk kasir
+    public function getProduct()
+    {
+        $products = Products::where('is_active', 1)->get()->map(function ($product){
+            return [
+                'id' => $product->id,
+                'name' => $product->product_name,
+                'price' => (int)$product->product_price,
+                'image' => $product->product_photo,
+                'option' => '',
+            ];
+        });
+        return view('Assets_Kasir.index', compact('products'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

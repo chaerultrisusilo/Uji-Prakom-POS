@@ -24,9 +24,15 @@ class LoginController extends Controller
         $credential = $request->only('email', 'password');
         // Auth : class
         if (Auth::attempt($credential)) {
-            return redirect('dashboard')->with('success', 'Success Login');
-        } else {
-            return back()->withErrors(['email' => 'Please check your credentials'])->withInput();
+            $user = Auth::user();
+            if ($user->role_id == 1) {
+                return redirect('dashboard');
+            } elseif ($user->role_id == 2) {
+                return redirect('kasir');
+            } 
+                // return redirect('dashboard')->with('success', 'Success Login');
+                return back()->withErrors(['email' => 'Please check your credentials'])->withInput();
+            
         }
     }
 

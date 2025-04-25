@@ -14,8 +14,17 @@ class Orders extends Model
         'order_change',
     ];
 
+    public function category()
+    {
+        return $this->hasMany(Categories::class, 'id', 'category_id');
+    }
     public function orderDetails()
     {
         return $this->hasMany(OrderDetails::class, 'order_id', 'id');
+    }
+
+    public function product()
+    {
+        return $this->hasMany(Product::class, 'id', 'product_id');
     }
 }
