@@ -44,5 +44,11 @@
             </a>
           </li>
           <li>
+          <li>
+            <a href="kasir">
+              <i class="bi bi-circle"></i><span>Pos Sale</span>
+            </a>
+          </li>
+          <li>
 
   </aside>

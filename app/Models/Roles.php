@@ -10,4 +10,9 @@ class Roles extends Model
         'name', 
         'is_active',
     ];
+
+    public function user()
+    {
+        
+    }
 }

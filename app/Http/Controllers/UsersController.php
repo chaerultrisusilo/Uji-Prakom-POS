@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Roles;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -14,7 +15,7 @@ class UsersController extends Controller
     {
         $title = "Data Users";
         // select * from users
-        $datas = User::get();
+        $datas = User::with('roles')->get();
         $roles = Roles::orderBy('id', 'desc')->get();
         return view('users.index', compact('title', 'datas', 'roles'));
     }
@@ -24,7 +25,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = Roles::where('is_active', 1)->get();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -33,7 +35,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         User::create([
-            'name' => $request->user_name,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
